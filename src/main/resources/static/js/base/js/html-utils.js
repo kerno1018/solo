@@ -1,0 +1,1 @@
+define(["jquery"],function(n){var t=function(){var t=this;t.unescapeHTML=function(t){return n("<div />").html(t).text()},t.escapeHTML=function(t){return n("<div />").text(t).html()}};return new t});

@@ -1,0 +1,1 @@
+define(["jquery","knockout"],function(e,t){"use strict";var o=function(e,o){var i=this,a=e.widgetOptions.aboutHelp;i.widget=t.observable(e),i.dashboardViewModel=o,i.templateId=a&&a.templateId||"",i.headerTitle=a.headerTitle||"About "+e.name+" widget",i.headerSubTitle=a.headerSubTitle||null};return o.prototype.modalClose=function(){this.modal.close()},o});

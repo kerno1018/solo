@@ -1,0 +1,73 @@
+<div>
+    <div class="row">
+        <div class="col-md-3 col-sm-3 col-xs-12"><label>Chart Name *</label></div>
+        <div class="col-md-8 col-sm-8 col-xs-7">
+            <div class="input-group">
+                <input type="text" readonly="true" class="form-control" data-bind="value: chartName"/>
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default" data-bind="click: openSelectChartDialog">Choose...</button>
+                </div><!-- /btn-group -->
+            </div><!-- /input-group -->
+        </div>
+        <div class="col-md-1 col-sm-1 col-xs-1">
+            <span class="icon-info tooltipstered builder_tooltips" title="Select from list of available chart/table"></span>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-4">
+            <label>Parameter Name</label>
+        </div>
+        <div class="col-md-4">
+            <label>Parameter Value</label>
+        </div>
+        <div class="col-md-3">
+            <div class="float-right" style="margin-top:8px">
+                <a href="javascript:void(0)"  data-bind="click: addNewBindParam">
+                    <span class="fa fa-plus"></span> Add Parameters
+                </a>
+            </div>
+        </div>
+        <div class="col-md-1 col-sm-1 col-xs-1">
+            <span id="add-param-tool-tip" class="icon-info tool-tip tooltipstered builder_tooltips" title="Add more parameters for this chart or table"></span>
+        </div>
+    </div>
+    <div data-bind="foreach: params">
+        <div class="row">
+            <div class="col-md-4">
+                <input type="text" data-bind="value: name"/>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" data-bind="value: value"/>
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu" data-bind="foreach: $parent.reportParams">
+                            <li><a href="javascript:void(0);" data-bind="click: function() {$parents[1].setParamValue($parent, $data)}"><span data-bind="text: $data"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-1 col-sm-1 col-xs-1">
+                <div class="row-actions">
+                    <a href="javascript:void(0);" data-bind="click: function() {$parent.removeParam($index())}">
+                        <span class="fa fa-remove"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<acs-modal-dialog
+        params="title: 'Select Chart/Table',
+                titleIconClass: 'fa-list icon blue',
+                width: 'modal-lg',
+                subtitle: 'Select one table / chart from the list below',
+                id: 'select-chart-modal',
+                bodyTemplate: 'select-chart-modal-body',
+                showCancelButton: false,
+                showActionButton: false,
+                viewModel: $data">
+</acs-modal-dialog>

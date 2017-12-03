@@ -1,0 +1,1 @@
+define(["jquery","underscore"],function(e,u){"use strict";var t=100,r=function(){var r=this;r.requestQueue=[],window.setInterval(function(){u.isEmpty(r.requestQueue)||e.ajax(r.requestQueue.shift())},t)};return r.prototype.ajax=function(e){var u=this;u.requestQueue.push(e)},new r});

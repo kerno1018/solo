@@ -1,0 +1,1 @@
+define(["jquery"],function(o){return this.moveScroller=function(){var r=function(){var r=o(window).scrollTop(),l=o("#scroller-anchor").offset().top,e=o("#scroller");r>l?e.addClass("clipped"):l>=r&&e.removeClass("clipped")};o(window).scroll(r),r()},this});

@@ -1,0 +1,32 @@
+<!--widgetPopover.tmpl.html start-->
+<div data-bind="click: removeWidget, clickBubble: false">
+   <div class="clearfix">
+        <div class="col-md-10 no-padding">
+            <span title="Remove Widget">Remove</span>
+        </div>
+        <div class="col-md-2 no-padding">
+           <span class="fa fa-times icon right"></span>
+        </div>
+    </div>
+</div>
+<div data-bind="visible: widget().enableConfig, click: showConfigWidgetModal, clickBubble: false">
+    <div class="clearfix">
+        <div class="col-md-10 no-padding">
+            <span title="Configure Widget">Configure</span>
+        </div>
+        <div class="col-md-2 no-padding">
+            <span class="fa fa-cog icon"></span>
+        </div>
+    </div>
+</div>
+<div data-bind="visible: widget().enableHelp, click: showAboutWidgetModal, clickBubble: false">
+    <div class="clearfix">
+        <div class="col-md-10 no-padding">
+            <span title="About The Widget">About</span>
+        </div>
+        <div class="col-md-2 no-padding">
+            <span class="fa fa-info-circle icon"></span>
+        </div>
+    </div>
+</div>
+<!--widgetPopover.tmpl.html end-->

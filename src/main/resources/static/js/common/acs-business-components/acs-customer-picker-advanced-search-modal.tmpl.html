@@ -1,0 +1,101 @@
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="vertical-alignment-helper">
+      <div class="modal-dialog vertical-align-center modal-lg">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" data-bind="click: cancel"><span aria-hidden="true">&times;</span></button>
+               <div class="main-title">
+                  <div class="fa-database icon"></div>
+                  <h1>Customer Picker: Advanced Search</h1>
+                  <h2>Use fields below to provide additional information to find specific customer</h2>
+               </div>
+            </div>
+            <div class="modal-body no-padding"  >
+               <!-- section class="sample" -->
+               <div >
+                  <div class="setup-wizard">
+                     <div id="advanced-search-bar" >
+                        <div class="form-group" >
+                           <div class="row"  >
+                              <div class="col-md-3" style="padding-left: 5px; padding-right: 5px;" >
+                                 <acs-input-text params="value: name, place_holder: 'Customer Name', event_handler: search">
+                                 </acs-input-text>
+                              </div>
+                              <div class="col-md-15" style="padding-left: 0px; padding-right: 5px;" >
+                                 <acs-input-text params="value: country, place_holder: 'country',
+                                    event_handler: search">
+                                 </acs-input-text>
+                              </div>
+                              <div class="col-md-15" style="padding-left: 0px; padding-right: 5px;" >
+                                 <acs-input-text params="value: gcsParty, place_holder: 'GCS Party',
+                                    event_handler: search">
+                                 </acs-input-text>
+                              </div>
+                              <div class="col-md-15" style="padding-left: 0px; padding-right: 5px;">
+                                 <acs-input-text
+                                    params="value: geo, place_holder: 'GEO', event_handler: search">
+                                 </acs-input-text>
+                              </div>
+                              <div class="col-md-15" style="padding-left: 0px; padding-right: 5px;" data-bind="visible: !activeCustomerOnly">
+                                 <select id="form-selectdropdownState" data-bind=" value: status ">
+                                    <option>-Status-</option>
+                                    <option>Inactive</option>
+                                    <option>Active</option>
+                                 </select>
+                              </div>
+                              <!--button group start-->
+                              <div class="float-right"   >
+                                 <a class="btn btn-default" data-bind="click: clear">
+                                 <span class="fa-rotate-left fa left"></span>
+                                 Clear
+                                 </a>
+                                 <a class="btn btn-primary" data-bind="click: search">
+                                 <span class="fa-search fa left"></span>
+                                 Search
+                                 </a>
+                              </div>
+                              <!--button group end-->
+                           </div>
+                        </div>
+                        <!--form group end-->
+                     </div>
+                     <div class="dataTables_wrapper no-footer">
+                        <table id="advanced-search-table"  class="table dataTable table-condensed "
+                           data-bind='dataTable: {datatableRef: datatableObj, options:datatableOptions}'>
+                           <colgroup>
+                              <col orderable="false" class="col-md-1" template="<a href='#' class='btn btn-default' col-data-bind='click:$data.selectCustomer'>Select</a>">
+                              <col data='name' title="Customer Name" class="main-name col-md-4 vertical-middle" expandable=true truncate=25 >
+                              <col data='country' title="Country" class="col-md-1 text-center  vertical-middle" expandable=true truncate=8  truncateOptions= {"showMore":true} >
+                              <col data='gcsParty' title="GCS Party" class="col-md-2 text-center  vertical-middle" expandable=true truncate=10 truncateOptions={"showMore":true} >
+                              <col data='geo' title="GEO" class="col-md-1 text-center  vertical-middle"  expandable=true truncate=15 truncateOptions={"showMore":true} >
+                              <col data='status' class="col-md-2 text-center  vertical-middle"  title="Status"
+                                 template="
+                                 <div col-data-bind='visible: status!=&quot;Active&quot;' class='user-status'>
+                                 <span class='user-disabled tipster' title='Inactive'></span>
+                                 <em class='hidden'>Inactive</em>
+                                 </div>
+                                 <div col-data-bind='visible: status==&quot;Active&quot;' class='user-status'>
+                                 <span class='user-active tipster' title='Active'></span>
+                                 <em class='hidden'>Active</em>
+                                 </div>" type="htmlicons">
+                           </colgroup>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+               <!-- /section-->
+            </div>
+            <div class="modal-footer">
+               <div class="button-con">
+                  <div class="float-right">
+                     <a href="javascript" class="btn btn-default" title="Close Window" data-bind="click: cancel">
+                     <span class="fa-remove fa"></span>
+                     Close Window
+                     </a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

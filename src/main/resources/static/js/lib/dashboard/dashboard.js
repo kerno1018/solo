@@ -1,0 +1,1 @@
+define(["knockout"],function(e){"use strict";var i=function(i,r,d,n){var t=this;t.grid=null,t.id=i.id,t.name=e.observable(i.name),t.code=i.code,t.selected=e.observable(r),t.fixed=n,t.widgets=e.observableArray(d),t.widgetsInitialized=e.observable(r),t.url="DASHBOARD_"+i.id};return i});

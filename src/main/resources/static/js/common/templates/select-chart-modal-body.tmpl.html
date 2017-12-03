@@ -1,0 +1,11 @@
+<div>
+    <table id="charts-table" class="table dataTable"
+           data-bind='dataTable: {data: chartList, options: chartTableOptions}'>
+        <col data='selectButton' title='' targets=0 template='<input type="button" col-data-bind="click: function(){$data.selectChart($index)}" value="Select" name="chart-select-buttons">' orderable=false width="5%" >
+        <col data="name" title="Name" class="main-name" targets=0 width="40%">
+        <col data="categories" class="text-center" title="Category" targets=2 width="25%">
+        <col data="owner" title="Owner" targets=3 width="15%">
+        <col data='type' title="Chart Type" targets=4 width="15%" displayOptions = "Table,Pie,Bar,Line,Area" type = "htmlicons" template=
+                "<acs-status params=&quot;value: type, status_array: $data.chartTypeArray&quot;></acs-status>">
+    </table>
+</div>

@@ -1,0 +1,7 @@
+<div id="breadcrumbs">
+    <ol class="breadcrumb" role="navigation" data-bind="foreach: breadCrumbsArray">
+        <li data-bind="visible: $root.breadCrumbsArray().length > 1">
+            <a data-bind="attr: { href: url, 'aria-label': text}, text: text"></a>
+        </li>
+    </ol>
+</div>

@@ -1,0 +1,34 @@
+<!-- acs-navigation-panel.tmpl start -->
+<div id="navigationPanelTitle"></div>
+<nav class="vertical_nav">
+
+	<ul id="js-menu" class="menu" data-bind="foreach: {data: menuItemKeys, as: '_index'}">
+		<li class="menu--item" data-bind="click: function(data, event) { $root.toggleMenuItem(data, event); }, css: {'menu--item__has_sub_menu': $root.menuItems()[_index].children
+			&& $root.menuItems()[_index].children.length > 0}">
+			
+			<label class="menu--link">
+				<i class="menu--icon fa" data-bind="css: $root.menuItems()[_index].icon"></i>
+				<span class="menu--label" data-bind="text: $root.menuItems()[_index].title"></span>
+				<!--<span class="toggle fa fa-chevron-right" aria-label="Expand"></span>-->
+			</label>
+			
+			<!-- ko if: $root.menuItems()[_index].children && $root.menuItems()[_index].children.length > 0 -->
+			<ul class="sub_menu" data-bind="foreach: $root.menuItems()[_index].children">
+				<li class="sub_menu--item">
+					<a class="sub_menu--link sub_menu--link__active" href="javascript:;"
+					   data-bind="click: function(data, event) { $root.goToPath(data, event); }, text: title">
+					</a>
+				</li>
+			</ul>
+			<!-- /ko -->
+			
+		</li>
+	</ul>
+	<!-- To-Do: Implement the expand/collapse feature -->
+    <!--button id="collapse_menu" class="collapse_menu">
+        <i class="collapse_menu--icon fa fa-angle-double-right"></i>
+        <span class="collapse_menu--label"></span>
+    </button-->
+	
+</nav>
+<!-- acs-navigation-panel.tmpl end -->

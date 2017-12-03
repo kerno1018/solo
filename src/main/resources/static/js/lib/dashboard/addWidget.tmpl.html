@@ -1,0 +1,13 @@
+<!--addWidget.tmpl.html start-->
+<div class="dropdown">
+	<button id="addWidgetBtn" type="button" title="Add New Widget" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bind="clickBubble: false, enable: dashboardCounter() > 0">
+		<span class="fa-plus fa left"></span>Add Widget
+	</button>
+	<div id="addWidgetTooltip" class="dropdown-menu clearfix" data-bind="preventBubble: 'click'">
+		<table id="addWidget-table" class="table dataTable table-condensed no-header" data-bind="dataTable: {data: widgetDataTable.data, options: widgetDataTable.options}, preventBubble: 'click'">
+			<col data="widgetObj.name" targets=1 class="main-name" width="80%"
+				 template='<div class="widgetName" col-data-bind="text: widgetObj.name"></div> <div class="widgetDesc" col-data-bind="text: widgetObj.description"></div>' />
+		</table>
+	</div>
+</div>
+<!--addWidget.tmpl.html start

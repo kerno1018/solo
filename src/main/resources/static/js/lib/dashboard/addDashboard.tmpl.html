@@ -1,0 +1,25 @@
+<!--addDashboard.tmpl.html start-->
+<div class="dropdown">
+	<button id="addDashboardBtn" type="button" title="Add Dashboard" 
+		class="btn btn-default dropdown-toggle btn-add" 
+		data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+		data-bind="clickBubble: false, enable:  dashboardCounter() < maxDashboardSize">
+		<span class="fa-plus-circle fa"></span>
+	</button>
+	<div class="dropdown-menu addDashboardTooltip">
+		<form action="#/dashboard" data-bind="submit: addDashboard, preventBubble: 'click'">
+			<div class="">
+				<div class="col-md-8 no-padding">
+			    	<input maxlength="20" type="text" class="form-control" data-bind="preventBubble: 'click', value: createTitle, valueUpdate: 'afterkeydown'"/>
+			    </div>
+			    <div class="col-md-4 no-padding">
+			        <button type="submit" class="btn btn-primary" title="Create Dashboard" data-bind="enable: createTitle().length > 0">
+						<span class="fa-check fa left"></span>
+						<span>Create</span>
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<!--addDashboard.tmpl.html end-->

@@ -1,0 +1,132 @@
+<!-- app_header.tmpl start -->
+<nav class="navbar navbar-inverse" role="navigation" id="top">
+	<div class="container-fluid">
+		<!-- app header start-->
+		<div class="navbar-header">
+
+			<!--oracle logo start-->
+			<div class="app-header">
+				<div class="app-logo">
+					<a class="navbar-brand" href="index.html" id="top" aria-label="Oracle"></a>
+				</div>
+				<div class="app-name">
+					Oracle Advanced Support
+				</div>
+
+				<!--system menu start-->
+				<ul class="nav navbar-nav system-nav navbar-right">
+
+					<!--create button-->
+					<li class="system-create dropdown">
+						<a href="#" class="btn btn-create main-create" data-toggle="dropdown" aria-expanded="false">
+							<span class="fa-plus fa"></span>
+							Create
+							<span class="icon-caret"></span>
+						</a>
+
+						<div class="dropdown-menu main-create-nav" role="menu">
+							<ul>
+								<!-- ko foreach: nagivationMenu.createMenuList -->
+								<li>
+                                    <a data-bind="attr: { href: $data.url }">
+                                        <span data-bind="text: $data.menuText"></span>
+                                    </a>
+								</li>
+								<!-- /ko -->
+							</ul>
+						</div>
+					</li>
+
+					<!--user menu-->
+					<li class="system-user dropdown">
+						<a href="#user" class="shape-maker dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
+						   aria-label="User" data-bind="text: initials">
+
+						</a>
+
+						<div class="dropdown-menu user-menu" role="menu">
+							<ul>
+								<li>
+									<a href="#/profile">
+										<span class="fa-user fa"></span>
+										<h data-bind="text: fullName"></h>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:void(0)" data-bind="click: logout">
+										<span class="fa-sign-out fa"></span>
+										Logout
+									</a>
+								</li>
+							</ul>
+						</div>
+
+					</li>
+				</ul>
+				<!--system menu end-->
+			</div>
+			<!--oracle logo end-->
+
+			<button type="button" class="navbar-toggle collapsed btn btn-default" data-toggle="collapse"
+					data-target="#navbar" aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+
+
+			<!--main nav container start-->
+			<div id="navbar" class="collapse navbar-collapse">
+				<!--main nav start-->
+				<ul class="nav navbar-nav main-nav navbar-left" data-bind="html: nagivationMenu.navhtml"></ul>
+				<!--main nav end-->
+				<ul class="nav navbar-nav main-nav navbar-right">
+					<li class="global-search">
+						<div class="search-con">
+							<div class="dropdown">
+								<a href="#search-type" aria-label="Search Within" class="dropdown-toggle"
+								   data-toggle="dropdown" aria-expanded="false">
+									<span class="fa-search fa"></span>
+									<span class="icon-caret"></span>
+								</a>
+
+								<ul class="dropdown-menu" role="menu">
+									<li>
+										<a href="#">
+											<span class="fa-clock-o fa"></span>
+											Incident
+										</a>
+									</li>
+									<li class="active">
+										<a href="#">
+											<span class="fa-wrench fa"></span>
+											Change
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="fa-book fa"></span>
+											Knowledge
+										</a>
+									</li>
+									<li>
+										<a href="#">
+											<span class="fa-warning fa"></span>
+											Problem
+										</a>
+									</li>
+								</ul>
+							</div>
+
+							<input type="text" placeholder="Search" arial-label="Search"/>
+						</div>
+					</li>
+				</ul>
+				<!--  ul for search -->
+			</div>
+			<!--main nav container end-->
+		</div>
+		<!-- header end-->
+	</div>
+</nav>
+<!-- app_header.tmpl end -->

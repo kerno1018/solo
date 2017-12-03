@@ -1,0 +1,31 @@
+<h3 data-bind="text: currentModule"></h3>
+<div id="dl-menu" class="dl-menuwrapper">
+    <ul class="nav nav-sidebar dl-menu" data-bind="foreach: sideMenus">
+        <!-- ko if: subMenuGroup && ($index() === 0 || $parent.sideMenus()[$index() - 1].subMenuGroup !== subMenuGroup) -->
+        <h4 data-bind="text: subMenuGroup"></h4>
+        <!-- /ko -->
+        <li>
+            <a data-bind="attr: { href: url }">
+                <i class="fa fa-caret-right" data-bind="visible: submenus && submenus.length != 0"/> <span data-bind="text: menuText"/>
+            </a>
+            <!-- ko if: submenus && submenus.length > 0 -->
+            <ul class="nav nav-sidebar dl-submenu" data-bind="foreach: submenus">
+                <li>
+                    <a data-bind="attr: { href: url }">
+                        <i class="fa fa-caret-right" data-bind="visible: submenus && submenus.length != 0"/> <span data-bind="text: menuText"/>
+                    </a>
+                    <!-- ko if: submenus && submenus.length > 0 -->
+                    <ul class="nav nav-sidebar dl-submenu" data-bind="foreach: submenus">
+                        <li>
+                            <a data-bind="attr: { href: url }">
+                                <i class="fa fa-caret-right" data-bind="visible: submenus && submenus.length != 0"/> <span data-bind="text: menuText"/>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /ko -->
+                </li>
+            </ul>
+            <!-- /ko -->
+        </li>
+    </ul>
+</div><!-- /dl-menuwrapper -->

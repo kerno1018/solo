@@ -1,0 +1,132 @@
+<div class="col-md-12 form-group no-padding">
+  <div class="row">
+    <div class="required-note">
+      * required fields
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 no-padding">
+      <acs-input-text
+        params="label: 'Name',
+        labelWidth: 'col-md-2 no-padding',
+        fieldWidth: 'col-md-9',
+        title: 'Enter recommendation name',
+        value: name,
+        id: 'name'">
+      </acs-input-text>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 no-padding">
+      <div class="col-md-6 no-padding">
+        <div class="col-md-4 no-padding">
+          <label for="category">
+            Category*
+          </label>
+        </div>
+        <div class="col-md-6">
+          <select id="category" data-bind="foreach: categoryOptions, value: selectedCategoryOption">
+            <optgroup data-bind="attr: {label: label}, foreach: children">
+              <option data-bind="text: label, option: $data"></option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <span class="icon-info tooltipstered" title="Category" data-rel-element="category">
+          </span>
+        </div>
+      </div>
+      <div class="col-md-6 no-padding">
+        <acs-dropdown
+          params="label: 'Instance',
+          title: 'Instance',
+          labelWidth: 'col-md-5',
+          fieldWidth: 'col-md-5',
+          id: 'instance',
+          value: target_id,
+          options_caption: 'All instances',
+          options_text: instanceLabelProperty,
+          options_value: instanceIdProperty,
+          options: instanceList">
+        </acs-dropdown>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 no-padding">
+      <div class="col-md-6 no-padding">
+        <acs-dropdown
+          params="label: 'Impact',
+          title: 'Impact level',
+          labelWidth: 'col-md-4 no-padding',
+          fieldWidth: 'col-md-6',
+          id: 'impact',
+          value: impact,
+          options_caption: dummyOptionCaption,
+          required: true,
+          options: impactOptions">
+        </acs-dropdown>
+      </div>
+      <div class="col-md-6 no-padding">
+        <acs-dropdown
+          params="label: 'Severity',
+          title: 'Severity level',
+          labelWidth: 'col-md-5',
+          fieldWidth: 'col-md-5',
+          id: 'severity',
+          value: severity,
+          options_caption: dummyOptionCaption,
+          options: severityOptions">
+        </acs-dropdown>
+      </div>
+    </div>
+  </div>
+  <!-- ko if: $data.mode() == 'edit' -->
+  <div class="row">
+    <div class="col-md-6 no-padding">
+      <acs-dropdown
+        params="label: 'Status',
+        title: 'Status',
+        labelWidth: 'col-md-4 no-padding',
+        fieldWidth: 'col-md-6',
+        id: 'status',
+        value: status,
+        options_caption: 'Choose one....',
+        options: statusOptions">
+      </acs-dropdown>
+    </div>
+  </div>
+  <!-- /ko -->
+  <div class="row">
+    <div class="col-md-12 no-padding">
+      <div class="col-md-2 no-padding">
+        <label>Recommendation *</label>
+      </div>
+      <div class="col-md-9">
+        <div data-bind="css: {'alert-danger': !!recommendation.isValid && !recommendation.isValid() }">
+          <!-- ko if: !!recommendation.isValid && !recommendation.isValid() -->
+          <div class="alert-icon"></div>
+          <p><b>Error:</b> Recommendation field is required.</p>
+          <!-- /ko -->
+          <acs-text-editor params="value: recommendation, standard_editor: false"></acs-text-editor>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 no-padding">
+      <div class="col-md-2 no-padding">
+        <label>Justification</label>
+      </div>
+      <div class="col-md-9">
+        <div data-bind="css: {'alert-danger': !!justification.isValid && !justification.isValid() }">
+          <!-- ko if: !!justification.isValid && !justification.isValid() -->
+          <div class="alert-icon"></div>
+          <p><b>Error:</b> Justification field is required.</p>
+          <!-- /ko -->
+          <acs-text-editor params="value: justification, standard_editor: false"></acs-text-editor>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

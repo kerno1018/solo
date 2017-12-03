@@ -1,0 +1,61 @@
+<div class="form-title">
+    <div data-bind="css:wizardIcon"></div>
+    <h1 data-bind="text: wizardTitle"></h1>   
+</div>
+<div class="panel panel-default wizard-train" data-bind="visible: showWizardTrain">
+    <div class="panel-body">  
+    <!--content start-->
+	    <ul data-bind="foreach:{data:stepsKeys,as:'_step'}">
+	        <li data-bind="visible:$parent.steps()[_step].isStep,css:$parent.steps()[_step].stepState">	     
+        	 	<!--ko ifnot: $parent.steps()[_step].showDropDown && $parent.steps()[_step].subSteps().length > 0 -->
+	            <a href="#" data-bind="click:function(data,event){$parent.gotoStep(_step)}">	            
+	                <span data-bind="css:$parent.steps()[_step].stepStateClass"></span>
+	                <span data-bind="text:$parent.steps()[_step].stepName"></span>
+	            </a>
+	            <!--/ko-->
+	        	<!--ko if:$parent.steps()[_step].showDropDown && $parent.steps()[_step].subSteps() && $parent.steps()[_step].subSteps().length > 0-->      
+	            <a href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+					<span data-bind="css:$parent.steps()[_step].stepStateClass"></span>	                
+					<span data-bind="html:$parent.steps()[_step].stepName"></span>	      
+	                <b class="caret"></b>      
+	            </a>
+		            <ul class="dropdown-menu nav" data-bind="foreach:$parent.steps()[_step].subSteps">
+		            	<li>
+		                    <a href="javascript:;" id="sublink1" data-bind="text:stepName,click:function(){$parentContext.$parent.loadSubStep($index())}"> </a>
+		                </li>
+		            </ul>
+	            <!--/ko-->
+	        </li>          
+	    </ul>  
+    <!--content end-->
+   	</div>
+</div>
+<div class="panel panel-default">
+   	<div class="panel-body">
+		<div id ="stepTmpl"></div>
+	
+		<div class="button-con">
+		    <div class="float-left">
+		    	<button class="btn-default btn"  data-bind="click:goBack,enable:enableBackButton">
+	                <span class="fa-chevron-left fa pull-left"></span>
+	                <span data-bind="text:currentStep().backButtonText"></span>
+	            </button>
+				<button class="btn-default btn" data-bind="click:exitWizard,enable:enableExitButton">
+	                <span class="fa-exit fa pull-left"></span>
+	                <span data-bind="text:exitButtonText"></span>
+	            </button>
+				<div class="note" data-bind="text:currentStep().backButtonLabel"></div>    
+		    </div><!--float-left-->
+		    <div class="float-right">		    	
+		    	<button class="btn-success btn" data-bind="click:goNext,enable:enableNextButton,visible:showNextButton">
+	                <span data-bind="css:nextButtonIcon"></span>
+	                <span data-bind="text:nextButtonText"></span>
+	            </button> 
+				<!--ko if:currentStep().btnTemplate -->
+		    	<h data-bind="template:{name:currentStep().buttonsTemplate}"></h>
+		    	<!--/ko--> 
+				<div class="note" data-bind="text:currentStep().nextButtonLabel"></div>     
+		    </div>
+		</div><!--button-con-->
+	</div>
+</div>

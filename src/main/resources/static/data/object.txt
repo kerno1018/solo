@@ -1,0 +1,4 @@
+{"data":[
+{"oriId":"20171103116","oriPrice":54.314,"targetPrice":54.617,"targetId":"20171110135"},
+{"oriId":"20171103116","oriPrice":54.314,"targetPrice":55.328,"targetId":"20171229115"},
+{"oriId":"20171110135","oriPrice":54.617,"targetPrice":55.328,"targetId":"20171229115"}]}

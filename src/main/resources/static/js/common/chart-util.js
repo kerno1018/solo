@@ -1,0 +1,1 @@
+define(["jquery"],function(){function n(){var n=this;n.convertToChartData=function(n,a){var t={groups:[],data:[]};return $.each(n,function(n,u){n===a.groupColumn?t.groups=u:a.dataColumns&&-1===a.dataColumns.indexOf(n)||t.data.push({name:n,items:u})}),t}}return new n});

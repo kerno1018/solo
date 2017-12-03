@@ -1,0 +1,19 @@
+{
+  "All Categories":[],
+  "Appendix": [ "AWR Details" ],
+  "Background Time": [ "Background Time" ],
+  "Cell Statistics": [ "Cell CPU Utilization", "Cell Memory Utilization", "Cell Network Statistics" ],
+  "Database Activity": [ "Database Calls", "Data Fetch", "Executions", "IO Performed", "Logical IO", "Logons Current", "Parsing", "Physical Reads", "Physical Writes", "Redo Generation", "Sorts", "Table Scans", "Temp Tablespaces", "Transactions" ],
+  "Database Objects": [ "Buffer Busy Waits", "Chain Rows", "DB Block Changes", "Direct Physical Reads", "Direct Physical Writes", "GC CR Blocks Received", "GC CR Blocks Served", "GC CU Blocks Received", "GC CU Blocks Served", "Global Cache Buffer Busy", "ITL Waits", "Logical Reads", "Optimized Physical Reads", "Physical Reads", "Physical Read Requests", "Physical Writes", "Physical Write Requests", "Row Lock Waits", "Space Allocated", "Space Used", "Table Scans" ],
+  "Database Summary": [ "Database Summary" ],
+  "DB Time": [ "CPU Time Analysis", "DB Time Summary", "Wait Events Details", "Wait Time Analysis" ],
+  "EDBMS Efficiency": [ "Chained Statistics", "Efficiency", "Flash Cache Effectiveness", "Hybrid Columnar Compression", "Smart Scans" ],
+  "Executive Summary": [],
+  "Memory Performance": [ "Buffer Cache", "Library Cache", "PGA Memory", "SGA Breakdown", "Shared Pool", "Sort Operations", "Temporary Space Usage" ],
+  "OS Activity": [ "CPU and Run Queue", "Disk Usage", "Memory" ],
+  "RAC Performance": [ "Global Cache Statistics", "Interconnect Statistics", "Other Global Statistics" ],
+  "Recommendations": [],
+  "Scorecard": [],
+  "SQL Analysis": [ "Application Wait Time", "Buffer Gets", "Cell Uncompressed", "Cluster Wait Time", "Concurrency Wait Time", "CPU Time", "Direct Writes", "Disk Reads", "Elapsed Time", "Executions", "Invalidations", "IO Interconnect", "IO Offload Eligible", "IO Offload Return", "IO Wait Time", "Java Execution Time", "Loads", "Optimized Physical Reads", "Parse Calls", "Physical Read", "Physical Read Requests", "Physical Write", "Physical Write Requests", "PLSQL Wait Time", "Rows Processed", "Sorts", "Version Count" ],
+  "Others": [ "Blank Page", "Blank Page1", "Blank Page2", "Blank Page3" ]
+}

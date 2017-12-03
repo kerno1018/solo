@@ -1,0 +1,249 @@
+<!--recommendations start-->
+<style>
+  .expanded-icon {
+    margin-left: -3px;
+    margin-top: -5px;
+  }
+</style>
+
+<acs-modal-dialog
+  params="title: 'Create Recommendation',
+  width: 'modal-lg',
+  titleIconClass: 'fa-list icon blue',
+  subtitle: 'Use fields below to create new recommendation for selected category',
+  id: 'create-recommendation-modal',
+  inprogress: cfgRecoModalVM.inProgress,
+  bodyTemplate: 'recommendation-basic-config-modal-body',
+  actionButtonLabel: 'Create',
+  actionButtonCallback: saveRecommendation,
+  actionButtonClass: 'fa fa-check left',
+  actionButtonId: 'save-recommendation-button',
+  actionButtonDisabled: cfgRecoModalVM.saveButtonDisabled,
+  viewModel: cfgRecoModalVM"></acs-modal-dialog>
+<acs-modal-dialog
+  params="title: 'Edit Recommendation',
+  width: 'modal-lg',
+  titleIconClass: 'fa-list icon blue',
+  subtitle: 'Edit fields below to update existing recommendation.',
+  id: 'edit-recommendation-modal',
+  inprogress: cfgRecoModalVM.inProgress,
+  bodyTemplate: 'recommendation-basic-config-modal-body',
+  actionButtonLabel: 'Update',
+  actionButtonCallback: saveRecommendation,
+  actionButtonClass: 'fa fa-check left',
+  actionButtonId: 'save-recommendation-button',
+  viewModel: cfgRecoModalVM"></acs-modal-dialog>
+<div id="configure-chart-modal-container" data-bind= "with: cfgChartModalVMContainer">
+  <acs-modal-dialog
+    params="title: 'Configuration',
+    titleIconClass: 'fa-list icon blue',
+    subtitle: 'Configure the chart table',
+    id: 'recommendation-configure-chart-modal',
+    bodyTemplate: 'recommendation-configure-chart-modal-body',
+    actionButtonLabel: 'Save Configuration',
+    actionButtonCallback: cfgChartModalVM.saveConfiguration,
+    actionButtonClass: 'fa fa-check left',
+    actionButtonId: 'save-configure-button',
+    actionButtonDisabled: cfgChartModalVM.saveConfigureDisabled,
+    viewModel: cfgChartModalVM"></acs-modal-dialog>
+</div>
+
+<!-- ko if: !hideRecommendationsList() && recommendations().length == 0 && showCustomization() -->
+<div class="panel panel-default bg-gray-lightest text-center">
+  <div class="panel-body">
+    <a href="javascript:void(0);" data-bind="click: createRecommendation" class="btn btn-default no-margin">
+      <span class="fa-plus fa left"></span>
+      Create Recommendation
+    </a>
+  </div>
+</div>
+<!-- /ko -->
+<!-- ko if: !hideRecommendationsList() && ((recommendations().length > 0 && showCustomization()) || !showCustomization()) -->
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="component-recommendations">
+      <!--content start-->
+
+      <!--sub title start-->
+      <h4 class="section-title">
+        Recommendations (<span data-bind="text: count"></span>)
+        <div class="title-actions">
+          <div class="col-md-3 col-sm-3 col-xs-3 text-center" data-bind="visible: showCategoryList">
+            <label class="pull-right txt-14" for="category" style="margin-top: -5px">Filter</label>
+          </div>
+          <div class="no-padding" data-bind="visible: showCategoryList, css: {'col-md-5 col-sm-5 col-xs-5': showCustomization(), 'col-md-9 col-sm-9 col-xs-9': !showCustomization()}">
+            <div class="col-md-12 col-sm-12 col-xs-12 no-padding-left">
+              <select id="category" data-bind="foreach: categoryOptions, value: selectedCategoryOption" style="margin-top: -14px">
+                <option data-bind="text: isGroup? label: '&nbsp;&nbsp;&nbsp;' + label(), option: $data, style: {fontWeight: isGroup?'bolder':'normal'}"></option>
+              </select>
+            </div>
+          </div>
+          <div data-bind="visible: showCustomization(), css: {'col-md-4 col-sm-4 col-xs-4': showCategoryList, 'col-md-12 col-sm-12 col-xs-12': !showCategoryList}">
+            <a href="javascript;" class="btn btn-default" data-bind="click: createRecommendation" style="margin-top: -18px">
+              <span class="fa-plus fa pull-left"></span>
+              Create
+            </a>
+          </div>
+        </div>
+      </h4>
+      <!--sub title end-->
+
+      <!--row start-->
+      <!-- ko foreach: recommendations -->
+      <div class="panel panel-default panel-toggle recommendation-panel">
+        <div tabindex="0" class="panel-heading" data-bind="click: toggleCollapse">
+          <div class="row row-eq-height">
+            <!--header content start-->
+
+            <div class="col-md-4 col-sm-4 col-xs-4">
+              <div class="panel-title">
+                <span class="toggle-link">
+                    <span class="fa-caret-right fa fa-2x toggle-icon" data-bind="css: {'fa-sort-down': collapsed() === false, 'expanded-icon': collapsed() === false, 'fa-caret-right': collapsed(), 'collapsed-icon': collapsed()}"></span>
+                </span>
+                <h4>
+                  <div data-bind="text: $data.name"></div>
+                  <p class="sub-title" data-bind="text: $data.instanceName"></p>
+                </h4>
+              </div>
+            </div>
+
+            <div class="col-md-7 col-sm-7 col-xs-7 panel-subheading">
+              <div class="col-md-8 label-advance">
+                <div class="label-text">Category</div>
+                <p class="no-padding" data-bind="text: $data.category_id"></p>
+              </div>
+              <div class="col-md-2 label-advance">
+                <div class="label-text">Impact</div>
+                <p class="no-padding" data-bind="text: $data.impact"></p>
+              </div>
+              <div class="col-md-2 label-advance">
+                <div class="label-text">Severity</div>
+                <p class="no-padding" data-bind="text: $data.severity"></p>
+              </div>
+            </div>
+
+            <div class="col-md-1 col-sm-1 col-xs-1 pull-right panel-subheading">
+              <!-- ko if: $data.status() == $component.STATUS.COMPLETED -->
+              <div class="circle-maker small bg-green fa-check fa tipster  pull-right" title="Completed" aria-label="Completed"></div>
+              <!-- /ko -->
+              <!-- ko if: $data.status() == $component.STATUS.IN_PROGRESS -->
+              <div class="circle-maker small bg-gray fa-refresh fa tipster  pull-right" title="In Progress" aria-label="In Progress"></div>
+              <!-- /ko -->
+              <!-- ko if: $data.status() == $component.STATUS.CANCELLED -->
+              <div class="circle-maker small bg-red fa-ban fa tipster  pull-right" title="Cancelled" aria-label="Cancelled"></div>
+              <!-- /ko -->
+            </div>
+          </div>
+
+          <!--header content end-->
+        </div>
+
+        <div class="panel-body" style="display: none;">
+          <!--expanded content start-->
+
+          <!--description start-->
+          <section>
+            <div class="row-eq-height" aria-label="Description">
+              <div class="pull-left">
+                <div class="fa-info-circle fa fa-3x txt-gray-lighter"></div>
+              </div>
+
+              <div class="col-md-11">
+                <h4 style="margin-top: 0px">Description</h4>
+                <div data-bind="html: $data.recommendation"></div>
+              </div>
+            </div>
+          </section>
+          <br><br>
+          <!--description end-->
+
+          <!--justification start-->
+          <!-- ko if:$data.justification().length > 0 -->
+          <section>
+            <div class="row-eq-height" aria-label="Justification">
+              <div class="pull-left">
+                <div class="fa-search fa fa-3x txt-gray-lighter"></div>
+              </div>
+
+              <div class="col-md-11">
+                <h4 style="margin-top: 0px">Justification</h4>
+                <div data-bind="html: $data.justification"></div>
+              </div>
+            </div>
+          </section>
+          <!--justification end-->
+          <!-- /ko -->
+          <br><br>
+          <!--supporting information start-->
+          <section data-bind="visible: showSupportInformation">
+              <h4 class="section-title">
+                <span class="panel-icon fa-info icon bg-blue"></span>
+                Supporting Information
+                <a class="pull-right" href="javascript:void(0)" data-bind="visible: showAddSupportInformation, click:$component.addSupportInformation">
+                  <span class="fa-plus-circle fa select-list-action-icon pull-right"></span>
+                  Add support information
+                </a>
+              </h4>
+              <div>
+                <!-- ko foreach: $data.charts -->
+                <div data-bind="css: {'panel panel-default': $component.showCustomization(), 'col-md-12': true, 'no-padding-top': true}">
+                  <div class="builder-top" data-bind="visible: $component.showCustomization()">
+                    <a class="_remove_ builder_tooltips tooltipstered" href="javascript:void(0)"><span class="fa fa-close" data-bind="click: $component.deleteSupportInformation.bind($component, $data, $parent)">
+                </span><em class="hidden">Remove</em></a>
+                  </div>
+                  <div class="panel-body">
+                    <acs-chart-container
+                            params="chart_name: $data.chart_name,
+                  type: $data.type,
+                  instance_qualifier: $data.instance_qualifier,
+                  show_customization: false,
+                  bind_variable: $data.bind_variable,
+                  instance_property_in_bindvariable: $data.instance_property_in_bindvariable,
+                  instance_list: $data.instance_list,
+                  selected_instance_idx: $data.selected_instance_idx,
+                  num_of_column: 1,
+                  readOnly: true,
+                  title: $data.title">
+                    </acs-chart-container>
+                  </div>
+                </div>
+                <!-- /ko -->
+              </div>
+          </section>
+          <!--supporting information end-->
+
+          <div class="button-con" data-bind="visible: $component.showCustomization()">
+            <div class="float-left">
+              <button class="btn btn-default" type="button" data-bind="click: $component.deleteRecommendation" id="delete-button">
+                <span class="fa fa-remove left"></span>
+                <span>Delete</span>
+              </button>
+            </div>
+            <div class="float-right">
+              <button class="btn btn-default" type="button" data-bind="click: $component.editRecommendation" id="edit-button">
+                <span class="fa fa-pencil left"></span>
+                <span>Edit</span>
+              </button>
+              <button class="btn btn-default" type="button" data-bind="click: $component.closeRecommendation, visible: $data.status() != $component.STATUS.CANCELLED" id="close-button">
+              <span class="fa fa-ban left"></span>
+              <span>Close</span>
+              </button>
+              <button class="btn btn-default" type="button" data-bind="click: $component.reopenRecommendation, visible: $data.status() == $component.STATUS.CANCELLED" id="reopen-button">
+                <span class="fa fa-folder-open left"></span>
+                <span>Reopen</span>
+              </button>
+
+            </div>
+          </div>
+          <!--expanded content end-->
+        </div>
+      </div>
+      <!-- /ko -->
+      <!--row end-->
+
+      <!--content end-->
+    </div>
+  </div>
+</div>
+<!-- /ko -->
+<!--recommendations end-->

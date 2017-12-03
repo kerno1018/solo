@@ -1,0 +1,25 @@
+<!-- widgetTemplate.html start -->
+<!-- ko ifnot: fixed -->
+<div class="dropup">
+    <div class="headerIconDiv dropdown-toggle" 
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+        data-bind="attr: {id: 'dropdown_' + widget().id }">
+        <span class="fa fa-cog headerIcon"></span>
+    </div>
+    <div class="dropdown-menu widgetToolTip" data-bind="template: widgetToolTipTemplate"></div>
+</div>
+<!-- /ko -->
+<div class="grid-stack-item-content">
+    <div class="col-md-12 no-padding sDashboardWidgetHeader">
+        <div class="no-padding" data-bind="css: widget().enableHeaderLink() ? 'col-md-8' : 'col-md-12' ">
+            <span class="widgetIcon fa" data-bind="css: widget().icon"></span>
+            <span class="widgetTitle" data-bind="text: widget().name"></span>
+        </div>
+        <div class="no-padding text-right" data-bind="visible: widget().enableHeaderLink(), css: widget().enableHeaderLink() ? 'col-md-4': '' ">
+            <span class="widgetLink" data-bind="html: widget().headerLink()"></span>
+        </div>         
+    </div>
+    <div class="sDashboardWidgetContent text-center" style="height: calc(100% - 27px)" data-bind="attr: { id: 'widgetContent-' + widget().id}">
+    </div>
+</div>
+<!--widgetTemplate.html start

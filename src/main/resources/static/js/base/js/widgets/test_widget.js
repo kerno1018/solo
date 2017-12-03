@@ -1,0 +1,1 @@
+define(["jquery","knockout","ojs/ojcore","ojs/ojknockout","ojs/ojbutton","ojs/ojchart"],function(o,t){"use strict";var j=function(){};return j});

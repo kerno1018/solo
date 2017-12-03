@@ -1,0 +1,1 @@
+define(["i18n!nls/strings"],function(r){var n=function(r,n){for(var t=r,i=0;i<n.length;i++)t=t.replace("{"+String(i)+"}",n[i]);return t};return{getString:function(t,i){var e=t in r?r[t]:t;return i&&(Array.isArray(i)||(i=[i]),e=n(e,i)),e}}});

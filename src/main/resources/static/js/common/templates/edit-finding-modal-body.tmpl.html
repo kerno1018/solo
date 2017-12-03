@@ -1,0 +1,31 @@
+<div>
+    <div>
+        <div class="required-note">
+            * required
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label>Instance</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <select data-bind="options: availableInstances,
+                       optionsText: 'name',
+                       value: findingInstanceSelected,
+                       optionsCaption: 'All Instances'"></select>
+            </div>
+        </div>
+        <p></p>
+        <div class="row">
+            <div class="col-sm-12">
+                <label>Finding *</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <acs-text-editor params="value: findingTextInputted"></acs-text-editor>
+            </div>
+        </div>
+    </div>
+</div>

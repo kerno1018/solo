@@ -1,0 +1,60 @@
+<!--dashboardTemplate.html start-->
+<div id="Dashboard" class="clearfix">	
+	<!-- ko ifnot: fixed -->
+	<div class="dashboardTabsRow clearfix">
+		<!--Dashboard Tabs Start-->
+		<div class="dashboard-controls col-xs-10 col-sm-10 col-lg-10 col-md-10 no-padding">
+			<div class="tabRow float-left" data-bind="foreach: dashboards">
+				<div class="btn" data-bind="
+							click: $parent.selectDashboard.bind($data, $parent), 
+                            clickBubble: false,
+                            css: selected() ? 'btn-primary' : 'btn-default', 
+                            attr: {id: 'dashboardTab_'+id, href: '#'+url}">
+   					<div class="btnContent ellipsis"><span data-bind="text: name"></span></div>
+					<div class="dropdown btnIcon">
+						<a href="#" data-bind="attr: {id: 'dropdown_'+id }" class="tabIcon dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+							<span class="fa fa-cog"></span>
+						</a>
+						<div class="dropdown-menu dashboardtootip" data-bind="template: { 
+							name: 'assets/header-nav-new-css/js/lib/dashboard/dashboardTabTooltip',
+							data: {
+                            	'data': $data,
+                                'title': $data.name(),
+                                'dashboardViewModel': $parent,
+                                'index': $index
+                            }
+                        }">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--Add Dashboard Page Start-->		
+			<div id="addDashboardContainer" class="float-left" data-bind="template: { 
+				name: 'assets/header-nav-new-css/js/lib/dashboard/addDashboard'}">
+			</div>
+			<!--Add Dashboard Page End-->		
+		</div>
+		<!--Dashboard Tabs End-->
+		<!--Add Widget Tab Start-->
+		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 no-padding" data-bind="if: widgetsLoaded()">
+			<div class="float-right" data-bind="template:{ name: 'assets/header-nav-new-css/js/lib/dashboard/addWidget'}"></div>
+		</div>
+		<!--Add Widget Tab End-->
+	</div>
+	<!-- /ko -->	
+	<!--content start-->
+	<div class="dashboardTabsContent" data-bind="foreach: {data: dashboards, afterRender: myPostProcessingLogic.bind($data)}">
+		<div class="tabpane fade" data-bind="css: selected() ? 'in active' : 'collapse', attr: {id: url}">
+			<!--page content start-->
+			<div data-bind="if: widgetsInitialized()">
+				<div class="dashboard-container grid-stack" data-bind="foreach: {data: $data.widgets , afterRender: $parent.afterAddWidget.bind($data)}, attr: {id: 'ss-container-dashboard-'+id}, css: 'grid-stack-' + $parent.number_columns">
+						<div class="grid-stack-item" data-gs-no-resize="true" data-bind="component:{name:'acs-widget', params:{data: $data, parent: $parentContext.$component, index: $index, fixed : $parent.fixed}}, attr: {'data-gs-x': $data.x, 'data-gs-y': $data.y, 'data-gs-width': $data.width, 'data-gs-height': $data.height, id: 'WIDGET-'+ $data.id}">
+						</div>
+				</div>
+			</div>
+			<!--page content end-->
+		</div>
+	</div>
+	<!--content end-->
+</div>	
+<!--dashboardTemplate.html end-->

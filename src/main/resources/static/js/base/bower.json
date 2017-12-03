@@ -1,0 +1,16 @@
+{
+  "name": "base",
+  "version": "0.0.1",
+  "authors": [
+    "roosevelt_lai <roosevelt.lai@oracle.com>"
+  ],
+  "description": "Base module for acs portal",
+  "main": "index.js",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "base"
+  ],
+  "private": true
+}
