@@ -20,23 +20,21 @@ public class SellAndBuyCommand extends BaseCommand implements Runnable {
     }
     @Override
     public void run() {
-        info = new LogInfo();
-        Double canUseMoney = account.getCanUseMoney();
-        canUseMoney = canUseMoney > Keys.FORBID_ROLLING_LIMIT ? Keys.FORBID_ROLLING_LIMIT : canUseMoney;
+        Double canUseMoney = getCanUsedMoney();
         int canBuyCount = Double.valueOf(canUseMoney/valueableStock.getSellOnePrice()/100).intValue()*100;
-        int canSellCount = new BigDecimal(canUseMoney/DB.getAllStocks().get(ownStock.getId()).getBuyOnePrice()/100).setScale(0, BigDecimal.ROUND_HALF_UP).intValue();
+        int canSellCount = new BigDecimal(canUseMoney/DB.getAllStocks().get(ownStock.getId()).getAvgBuyPrice()/100).setScale(0, BigDecimal.ROUND_HALF_UP).intValue();
         ExecutorService threadPool = Executors.newCachedThreadPool();
         threadPool.execute(new Buy(canBuyCount));
         threadPool.execute(new Sell(canSellCount));
         threadPool.shutdown();
         while (!threadPool.isTerminated()){
             try {
-                System.out.println(threadPool.isTerminated());
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+        account.substractLockAccountVersion();
         logService.save(info);
     }
 }

@@ -51,7 +51,9 @@ public class DB {
                 continue;
             }
             fund = new Stock(stock);
-            System.out.println(fund.getId());
+            if(fund.getPrice() == 0.0){
+                return;
+            }
             stockInfo.put(fund.getId(),fund);
         }
     }

@@ -19,20 +19,19 @@ public class NewerBuyCommand extends BaseCommand implements Runnable {
     @Override
     public void run() {
         ExecutorService threadPool = Executors.newCachedThreadPool();
-        info = new LogInfo();
-        Double canUseMoney = account.getCanUseMoney() - Keys.FORBID_ROLLING_LIMIT;
-        canUseMoney = canUseMoney > Keys.FORBID_ROLLING_LIMIT ? Keys.FORBID_ROLLING_LIMIT : canUseMoney;
-        int count = Double.valueOf(canUseMoney/valueableStock.getSellOnePrice()/100).intValue()*100;
+        Double canUseMoney = getCanUsedMoney();
+        int count = Double.valueOf(canUseMoney/valueableStock.getAvgSellPrice()/100).intValue()*100;
+        count = count> Double.valueOf(valueableStock.getSellCount()/2/100).intValue()*100 ? Double.valueOf(valueableStock.getSellCount()/2/100).intValue()*100:count;
         threadPool.execute(new Buy(count));
         threadPool.shutdown();
         while (!threadPool.isTerminated()){
             try {
-                System.out.println(threadPool.isTerminated());
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+        account.substractLockAccountVersion();
         logService.save(info);
     }
 }

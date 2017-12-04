@@ -9,6 +9,7 @@ import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.hibernate.criterion.Order;
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
@@ -33,6 +34,9 @@ public class Util {
     }
 
     public static String buy(HttpClient client ,Account account, String stock, Double price, Integer num) throws IOException {
+        if(Keys.DEBUG){
+            return Keys.ORDERNO;
+        }
         PostMethod method = new PostMethod(Keys.GTJA_ADDORDER_ADDR);
 
         NameValuePair[] param = getBuyParam(stock,price,num);
@@ -125,6 +129,19 @@ public class Util {
     }
 
     public static List<OrderInfo> getTurnOverInfo(HttpClient client, Account account, String param, List<OrderInfo> previous){
+        if(Keys.DEBUG){
+            List<OrderInfo> orderInfos = new ArrayList<>();
+            OrderInfo info = new OrderInfo();
+            info.setCode("test");
+            info.setCount(1000.0);
+            info.setDealType("");
+            info.setMoney(1000.0);
+            info.setOrderNo(Keys.ORDERNO);
+            info.setTime(new Date().getTime()+"");
+            info.setPrice(100.0);
+            orderInfos.add(info);
+            return orderInfos;
+        }
         GetMethod method = new GetMethod(Keys.GTJA_DEALINFO_TADAY+param);
         List<OrderInfo> list = new ArrayList<>();
         try {

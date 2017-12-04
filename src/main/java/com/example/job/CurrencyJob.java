@@ -7,6 +7,7 @@ import com.example.bean.Account;
 import com.example.bean.OwnStock;
 import com.example.bean.Stock;
 import com.example.base.DB;
+import com.example.entity.User;
 import com.example.service.JSLService;
 import com.example.service.LogService;
 import org.slf4j.Logger;
@@ -42,7 +43,7 @@ public class CurrencyJob {
 
     @Scheduled(cron="0/2 * 09-15 * * ? ")
     public void rolling(){
-        if(DB.start){
+        if(DB.start && DB.getAllStocks().size()>3){
             List<Stock> list = new ArrayList<Stock>();
             DB.getAllStocks().values().forEach(x->{
                 try {
@@ -58,14 +59,10 @@ public class CurrencyJob {
                 }
             });
 
-            list.forEach((x)->{
-                System.out.println("  "+x.getId() + " --- " + x.getPrice() + " --- " + x.sortByPrice());
-            });
-            System.out.println("-----------------------------------------------------------");
             Stock valueableStock = list.get(0);
             for(Account x : DB.getAllAccount().values()){
                 if(x.getStatus() && x.getLockAccountVersion().equals(0)){
-                    x.setLockAccountVersion(1);
+                    x.addLockAccountVersion();
                     // had ext money will auto buy.
                     if(x.getCanUseMoney() > Keys.FORBID_ROLLING_LIMIT){
                         if(valueableStock.sortByPrice() < 0 ){
@@ -92,7 +89,7 @@ public class CurrencyJob {
                             }
                         }
                     }
-                    x.setLockAccountVersion(0);
+                    x.substractLockAccountVersion();
                 }else{
                     logger.info("Account will continue rolling after all order finished.");
                 }
@@ -100,6 +97,20 @@ public class CurrencyJob {
         }
     }
 
-
+//    @Scheduled(fixedDelay = 5*SECOND)
+//    public void onlyLog(){
+//        if(Keys.DEBUG && DB.getAllAccount().size() ==0){
+//            User user = new User();
+//            user.setEnable(true);
+//            user.setId(1);
+//            Account account = new Account();
+//            account.setId(1);
+//            account.setUser(user);
+//            user.setAccount(account);
+//            account.setCookie("test");
+//            DB.addAccount(account);
+//        }
+//
+//    }
 
 }

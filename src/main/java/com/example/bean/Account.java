@@ -231,8 +231,11 @@ public class Account implements Serializable {
         return lockAccountVersion;
     }
 
-    public synchronized void setLockAccountVersion(Integer lockAccountVersion) {
-        this.lockAccountVersion = lockAccountVersion;
+    public synchronized void addLockAccountVersion(){
+        ++lockAccountVersion;
+    }
+    public synchronized void substractLockAccountVersion() {
+        --lockAccountVersion;
     }
 
     public synchronized void syncMoney() {

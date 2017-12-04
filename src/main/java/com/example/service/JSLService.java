@@ -6,6 +6,8 @@ import com.example.base.Keys;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import com.example.base.Util;
 
@@ -14,13 +16,13 @@ import java.util.Date;
 
 @Service
 public class JSLService {
+    Logger logger = LoggerFactory.getLogger(JSLService.class);
     private ObjectMapper mapp = new ObjectMapper();
     public void syncData(){
         try {
           Currency currency = mapp.readValue(Util.postResponseByUrl(Keys.JSL_MONEYINFO+new Date().getTime()), Currency.class);
           if(currency != null){
               currency.getRows().forEach(x->{
-                  System.out.println(x);
                    org.jsoup.nodes.Document doc = Jsoup.parse(x.getCell().get("today_net_value").toString(), "UTF-8");
                    Elements elements = doc.getElementsByTag("span");
                    String price = "";
@@ -68,7 +70,6 @@ public class JSLService {
         if(str.length()>0){
             DB.updateStockInfo(Util.getResponseByUrl(Keys.URL_STOCKK+str.toString()));
         }
-        System.out.println(DB.getAllStocks().size() + " finished");
-        System.out.println(DB.failedSyncStock.size() +" unfinished");
+        logger.info("refresh data with " + DB.getAllStocks().size() +" done!");
     }
 }

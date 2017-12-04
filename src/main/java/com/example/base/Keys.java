@@ -7,11 +7,11 @@ import java.util.Date;
  */
 public class Keys {
      public static Boolean FORCE_STOP = false;
-     public static Boolean needProxy = false;
-     public static Boolean DEBUG= false;
+     public static Boolean needProxy = true;
+     public static Boolean DEBUG= true;
      public static Boolean SHOW_LOG=true;
      public static Double POSITION = 0.95;
-     public static Double FORBID_ROLLING_LIMIT = 5000.0;
+     public static Double FORBID_ROLLING_LIMIT = 10000.0;
      public static  String URL_STOCKK = "http://hq.sinajs.cn/list=";
      public static String GTJA_ADDORDER_ADDR = "https://trade.gtja.com/webtrade/trade/webTradeAction.do?method=entrustBusinessOut";
      public static String GTJA_DEALINFO_TADAY = "https://trade.gtja.com/webtrade/trade/webTradeAction.do?method=searchDealDetailToday";

@@ -51,6 +51,7 @@ public class Stock implements Cloneable{
         sellFourPrice =     Double.valueOf(fields[27]);
         sellFive =          Double.valueOf(fields[28]);
         sellFivePrice =     Double.valueOf(fields[29]);
+//        price = getAvgSellPrice();
         date = fields[30];
         time = fields[31];
     }
@@ -335,20 +336,36 @@ public class Stock implements Cloneable{
     public void setTime(String time) {
         this.time = time;
     }
-
+    @Transient
     public Double getAllBuyCount(){
         return (buyOne + buyTwo)/2;
     }
-
+    @Transient
     public Double getAllSellCount(){
         return (sellOne + sellTwo)/2;
     }
 
+    @Transient
     public Double getAvgBuyPrice(){
         return (sellOne*sellOnePrice + sellTwo * sellTwoPrice)/2;
     }
+    @Transient
     public Double getAvgSellPrice(){
         return (buyOne*buyOnePrice+buyTwo*buyTwoPrice)/2;
+    }
+    public Double getSellCount(){
+        return sellOne + sellTwo;
+    }
+    public Double getBuyCount(){
+        return buyOne + buyTwo;
+    }
+    @Transient
+    public Double getMarketProvideMoney(){
+        return this.getSellCount()/2 * getAvgSellPrice();
+    }
+    @Transient
+    public Double getMarketConsumeMoney(){
+        return this.getBuyCount()/2 * getAvgBuyPrice();
     }
 
     @Transient
