@@ -26,7 +26,7 @@ public class Keys {
      public static String SUCCESS_INFO="{\"success\":true}";
 
      public static String UNIT_TOTAL = "10";
-     public static String USERNAME="2424726";
-     public static String PASSWORD="519018";
+     public static String USERNAME="";
+     public static String PASSWORD="";
      public static String EMAIL="418697994@qq.com";
 }
