@@ -19,7 +19,7 @@ public class Keys {
      public static  String GTJA_OWNINFO = "https://trade.gtja.com/webtrade/trade/webTradeAction.do?method=searchStackDetail";
      public static String JSL_MONEYINFO = "https://www.jisilu.cn/data/repo/trade_money_fund_list/?___t=";
      public static String DEAL_TYPE = "普通成交";
-     public static Double CONDITION_PREMINUM = 0.22;
+     public static Double CONDITION_PREMINUM = -0.00005;
      public static  String ORDERNO = "123";
      public static String ERROR_ORDER_NO = "NON-ORDER";
      public static String TIME_OUT = "Account Session Timeout";

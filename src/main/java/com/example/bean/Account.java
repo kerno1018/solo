@@ -194,7 +194,7 @@ public class Account implements Serializable {
         public void run() {
             while (true){
                 if(DB.getAccount(account.getId()+"") == null){
-                    break;
+                    continue;
                 }
                 if(Keys.FORCE_STOP){
                     break;

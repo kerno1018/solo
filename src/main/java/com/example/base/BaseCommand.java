@@ -35,15 +35,16 @@ public class BaseCommand {
     protected Double getCanUsedMoney(){
         Double canUseMoney = account.getCanUseMoney();
         canUseMoney = canUseMoney > Keys.FORBID_ROLLING_LIMIT ? Keys.FORBID_ROLLING_LIMIT : canUseMoney;
+        return canUseMoney;
         // check half sell or buy (one plus two) need cost money
-        double markeyProvideMoney = valueableStock.getMarketProvideMoney();
-        double buyCostMoney = canUseMoney > markeyProvideMoney ? markeyProvideMoney : canUseMoney;
-        if(ownStock != null){
-            double markeyConsumeMoney = DB.getAllStocks().get(ownStock.getId()).getMarketConsumeMoney();
-            double sellEarnMoney = canUseMoney > markeyConsumeMoney ? markeyConsumeMoney : canUseMoney;
-            return buyCostMoney > sellEarnMoney ? sellEarnMoney : buyCostMoney;
-        }
-        return buyCostMoney;
+//        double marketProvideMoney = valueableStock.getMarketProvideMoney();
+//        double buyCostMoney = canUseMoney > marketProvideMoney ? marketProvideMoney : canUseMoney;
+//        if(ownStock != null){
+//            double markeyConsumeMoney = DB.getAllStocks().get(ownStock.getId()).getMarketConsumeMoney();
+//            double sellEarnMoney = canUseMoney > markeyConsumeMoney ? markeyConsumeMoney : canUseMoney;
+//            return buyCostMoney > sellEarnMoney ? sellEarnMoney : buyCostMoney;
+//        }
+//        return buyCostMoney;
     }
     class Buy implements Runnable{
         Integer canBuyCount;

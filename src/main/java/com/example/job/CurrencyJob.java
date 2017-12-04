@@ -67,7 +67,7 @@ public class CurrencyJob {
                     if(x.getCanUseMoney() > Keys.FORBID_ROLLING_LIMIT){
                         if(valueableStock.sortByPrice() < 0 ){
                             Double canUseMoney = x.getCanUseMoney() - Keys.FORBID_ROLLING_LIMIT;
-                            if(canUseMoney/valueableStock.getAvgSellPrice() > 100){
+                            if(canUseMoney/valueableStock.getSellOnePrice() >= 100){
                                 new Thread(new NewerBuyCommand(x,valueableStock,logService)).start();
                                 break;
                             }
@@ -83,7 +83,13 @@ public class CurrencyJob {
                             if(own.getId().equals(valueableStock.getId())){
                                 continue;
                             }
-                            if(valueableStock.sortByPrice() < 0 && valueableStock.sortByPrice() - own.sortByPrice() <= Keys.CONDITION_PREMINUM){
+                            double valueablePriminum = (valueableStock.getSellOnePrice()-DB.realValue.get(valueableStock.getId())) /DB.realValue.get(valueableStock.getId());
+                            double ownPriminum = (DB.getAllStocks().get(own.getId()).getBuyOnePrice() - DB.realValue.get(own.getId())) / DB.realValue.get(own.getId());
+                            double countPriminum = valueablePriminum - ownPriminum;
+                            logger.info("value priminum :" + valueablePriminum);
+                            logger.info("  own priminum :" + ownPriminum);
+                            logger.info("count priminum :" + countPriminum);
+                            if(countPriminum < 0 && countPriminum <= Keys.CONDITION_PREMINUM){
                                 // sell own,buy new.
                                 new Thread(new SellAndBuyCommand(x,valueableStock,stock,logService)).start();
                             }
