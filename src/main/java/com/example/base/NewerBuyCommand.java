@@ -26,6 +26,7 @@ public class NewerBuyCommand extends BaseCommand implements Runnable {
             return;
         }
         ExecutorService threadPool = Executors.newCachedThreadPool();
+        logger.warn("------------------Had enough to buy ----------- start.");
         threadPool.execute(new Buy(count));
         threadPool.shutdown();
         while (!threadPool.isTerminated()){
@@ -36,6 +37,7 @@ public class NewerBuyCommand extends BaseCommand implements Runnable {
             }
         }
         account.substractLockAccountVersion();
+        logger.warn("------------------Had enough to buy ----------- end.");
         logService.save(info);
     }
 }

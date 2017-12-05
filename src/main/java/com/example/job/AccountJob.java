@@ -56,13 +56,24 @@ public class AccountJob {
 
     }
     @Scheduled(fixedDelay = SECOND*30)
-//    @Scheduled(cron="0/29 * 08-15 * * ? ")
+//    @Scheduled(cron="0/29 * 09-15 * * ? ")
     public void keepHeart(){
         Map<String, Account> accounts =  DB.getAllAccount();
         if(accounts.size() > 0 ){
             for(Account account : accounts.values()){
                 if(account.getStatus()){
                     HeartUtil.heart(account);
+                }
+            }
+        }
+    }
+    @Scheduled(cron="0 0/5 09-15 * * ? ")
+    public void syncAccountInfo(){
+        Map<String, Account> accounts =  DB.getAllAccount();
+        if(accounts.size() > 0 ){
+            for(Account account : accounts.values()){
+                if(account.getStatus()){
+                    account.syncAccountInfo();
                 }
             }
         }

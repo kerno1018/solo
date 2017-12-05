@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.example.base.*;
@@ -212,7 +213,9 @@ public class Account implements Serializable {
                 }
                 if(syncMoneyVersion > 0){
                     syncMoneyVersion--;
-                    logger.warn("sync can use money...");
+                    if(Keys.SHOW_LOG){
+                        logger.info("----------------sync can use money--------------");
+                    }
                     Double money = Util.updateAccountCanUseMoney(client,account);
                     if(money != null){
                         setCanUseMoney(money);
@@ -237,7 +240,15 @@ public class Account implements Serializable {
     public synchronized void substractLockAccountVersion() {
         --lockAccountVersion;
     }
-
+    public void syncAccountInfo(){
+        List<OwnStock> ownStocks = Util.getOwnStock(getClient(),this);
+        Map<String,OwnStock> map = new HashMap<>();
+        for(OwnStock stock : ownStocks){
+            map.put(stock.getId(),stock);
+        }
+        setOwnStock(map);
+        logger.warn(" ------------ sync account info done ---------------");
+    }
     public synchronized void syncMoney() {
         this.syncMoneyVersion++;
     }

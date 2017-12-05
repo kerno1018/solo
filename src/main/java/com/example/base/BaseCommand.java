@@ -65,11 +65,14 @@ public class BaseCommand {
                             if(orderInfo.getOrderNo().equals(orderNo)){
                                 doneFlag = true;
                                 LogBuilder.buildRealBuyInfo(info,orderInfo);
+                                account.syncMoney();
                                 break;
                             }
                         }
                         Thread.sleep(2000);
-                        logger.info("checking buy process to complement!");
+                        if(Keys.SHOW_LOG){
+                            logger.info("checking buy process to complement!");
+                        }
                     }
                     account.subtractVersion();
                 }
@@ -101,11 +104,14 @@ public class BaseCommand {
                             if(orderInfo.getOrderNo().equals(orderNo)){
                                 doneFlag = true;
                                 LogBuilder.buildRealSellInfo(info,orderInfo);
+                                account.syncMoney();
                                 break;
                             }
                         }
                         Thread.sleep(2000);
-                        logger.info("checking sell process to complement!");
+                        if(Keys.SHOW_LOG){
+                            logger.info("checking sell process to complement!");
+                        }
                     }
                     account.subtractVersion();
                 }

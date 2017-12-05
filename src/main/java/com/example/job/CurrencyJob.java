@@ -10,6 +10,7 @@ import com.example.base.DB;
 import com.example.entity.User;
 import com.example.service.JSLService;
 import com.example.service.LogService;
+import com.example.util.MathUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,7 @@ public class CurrencyJob {
                 if(x.getStatus() && x.getLockAccountVersion().equals(0)){
                     x.addLockAccountVersion();
                     // had ext money will auto buy.
-                    if(x.getCanUseMoney() > Keys.FORBID_ROLLING_LIMIT){
+                    if(Double.valueOf(x.getCanUseMoney()/Keys.FORBID_ROLLING_LIMIT).intValue() > 1){
                         if(valueableStock.sortByPrice() < 0 ){
                             Double canUseMoney = x.getCanUseMoney() - Keys.FORBID_ROLLING_LIMIT;
                             if(canUseMoney/valueableStock.getSellOnePrice() >= 100){
@@ -86,9 +87,13 @@ public class CurrencyJob {
                             double valueablePriminum = (valueableStock.getSellOnePrice()-DB.realValue.get(valueableStock.getId())) /DB.realValue.get(valueableStock.getId());
                             double ownPriminum = (DB.getAllStocks().get(own.getId()).getBuyOnePrice() - DB.realValue.get(own.getId())) / DB.realValue.get(own.getId());
                             double countPriminum = valueablePriminum - ownPriminum;
-                            logger.info("value priminum :" + valueablePriminum);
-                            logger.info("  own priminum :" + ownPriminum);
-                            logger.info("count priminum :" + countPriminum);
+                            if(Keys.SHOW_LOG){
+                                logger.info("---------------------------------------------------------------------------");
+                                logger.info("value priminum :" + MathUtil.formatDouble(valueablePriminum));
+                                logger.info("  own priminum :" + MathUtil.formatDouble(ownPriminum));
+                                logger.info("count priminum :" + MathUtil.formatDouble(countPriminum));
+                                logger.info("---------------------------------------------------------------------------");
+                            }
                             if(countPriminum < 0 && countPriminum <= Keys.CONDITION_PREMINUM){
                                 // sell own,buy new.
                                 new Thread(new SellAndBuyCommand(x,valueableStock,stock,logService)).start();

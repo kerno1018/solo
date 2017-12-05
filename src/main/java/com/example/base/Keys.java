@@ -8,8 +8,8 @@ import java.util.Date;
 public class Keys {
      public static Boolean FORCE_STOP = false;
      public static Boolean needProxy = true;
-     public static Boolean DEBUG= true;
-     public static Boolean SHOW_LOG=true;
+     public static Boolean DEBUG= false;
+     public static Boolean SHOW_LOG=false;
      public static Double POSITION = 0.95;
      public static Double FORBID_ROLLING_LIMIT = 10000.0;
      public static  String URL_STOCKK = "http://hq.sinajs.cn/list=";

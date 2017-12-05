@@ -29,6 +29,7 @@ public class SellAndBuyCommand extends BaseCommand implements Runnable {
             account.substractLockAccountVersion();
             return;
         }
+        logger.warn("------------------Rolling to buy$sell ----------- start.");
         ExecutorService threadPool = Executors.newCachedThreadPool();
         threadPool.execute(new Buy(canBuyCount));
         threadPool.execute(new Sell(canSellCount));
@@ -41,6 +42,7 @@ public class SellAndBuyCommand extends BaseCommand implements Runnable {
             }
         }
         account.substractLockAccountVersion();
+        logger.warn("------------------Rolling to buy$sell ----------- end.");
         logService.save(info);
     }
 }
