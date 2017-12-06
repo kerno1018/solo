@@ -19,7 +19,7 @@ public class NewerBuyCommand extends BaseCommand implements Runnable {
     @Override
     public void run() {
         Double canUseMoney = getCanUsedMoney();
-        int count = Double.valueOf(canUseMoney/100).intValue();
+        int count = Double.valueOf(canUseMoney/100/100).intValue()*100;
 //        count = count> Double.valueOf(valueableStock.getSellOne()/2).intValue()*100 ? Double.valueOf(valueableStock.getSellCount()/2/100).intValue()*100:count;
         if(count > valueableStock.getSellOne()/2){
             account.substractLockAccountVersion();

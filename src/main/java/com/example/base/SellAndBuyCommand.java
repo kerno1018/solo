@@ -22,8 +22,8 @@ public class SellAndBuyCommand extends BaseCommand implements Runnable {
     public void run() {
         Double canUseMoney = getCanUsedMoney();
 
-        int canBuyCount = Double.valueOf(canUseMoney/100).intValue();
-        int canSellCount = Double.valueOf(canUseMoney/100).intValue();
+        int canBuyCount = Double.valueOf(canUseMoney/100/100).intValue()*100;
+        int canSellCount = Double.valueOf(canUseMoney/100/100).intValue()*100;
         // if market can not consume will skip this time.
         if(canBuyCount > valueableStock.getSellOne()/2 || canSellCount > DB.getAllStocks().get(ownStock.getId()).getBuyOne()){
             account.substractLockAccountVersion();

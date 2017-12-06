@@ -211,16 +211,6 @@ public class Account implements Serializable {
                         setDealOrderSuccess(result);
                     }
                 }
-                if(syncMoneyVersion > 0){
-                    syncMoneyVersion--;
-                    if(Keys.SHOW_LOG){
-                        logger.info("----------------sync can use money--------------");
-                    }
-                    Double money = Util.updateAccountCanUseMoney(client,account);
-                    if(money != null){
-                        setCanUseMoney(money);
-                    }
-                }
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
@@ -240,7 +230,7 @@ public class Account implements Serializable {
     public synchronized void substractLockAccountVersion() {
         --lockAccountVersion;
     }
-    public void syncAccountInfo(){
+    public synchronized void syncAccountInfo(){
         List<OwnStock> ownStocks = Util.getOwnStock(getClient(),this);
         Map<String,OwnStock> map = new HashMap<>();
         for(OwnStock stock : ownStocks){
@@ -250,6 +240,12 @@ public class Account implements Serializable {
         logger.warn(" ------------ sync account info done ---------------");
     }
     public synchronized void syncMoney() {
-        this.syncMoneyVersion++;
+        if(Keys.SHOW_LOG){
+            logger.info("----------------sync can use money--------------");
+        }
+        Double money = Util.updateAccountCanUseMoney(client,this);
+        if(money != null){
+            setCanUseMoney(money);
+        }
     }
 }

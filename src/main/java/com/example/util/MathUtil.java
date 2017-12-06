@@ -1,5 +1,7 @@
 package com.example.util;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 public class MathUtil {
@@ -8,7 +10,9 @@ public class MathUtil {
         return f.format(value);
     }
     public static Double formatDoubleWith2point(Double value){
-        DecimalFormat f = new DecimalFormat("0.000");
-        return Double.valueOf(f.format(value));
+        BigDecimal b   =   new BigDecimal(value);
+        double   f1   =   b.setScale(5,   RoundingMode.HALF_UP).doubleValue();
+        DecimalFormat f = new DecimalFormat("0.00000");
+        return Double.valueOf(f.format(f1));
     }
 }

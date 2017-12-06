@@ -1,62 +1,12 @@
 [
   {
-      "path":"#btc",
+      "path":"#priminum",
       "pageFragments":[{
          "scope":"#container",
-         "templatePath":"templates/okex/okex",
-         "vmPath":"js/okex/btc",
+         "templatePath":"templates/currency/priminum",
+         "vmPath":"js/currency/priminum",
          "init":"",
          "afterRender":"after"
       }]
-  },
-  {
-    "path":"#ltc",
-    "pageFragments":[{
-      "scope":"#container",
-      "templatePath":"templates/okex/okex",
-      "vmPath":"js/okex/ltc",
-      "init":"",
-      "afterRender":"after"
-    }]
-  },
-  {
-    "path":"#ltcsltc",
-    "pageFragments":[{
-      "scope":"#container",
-      "templatePath":"templates/okex/okexfeaturecompare",
-      "vmPath":"js/okex/ltcsltc",
-      "init":"",
-      "afterRender":"after"
-    }]
-  },
-  {
-    "path":"#btcsbtc",
-    "pageFragments":[{
-      "scope":"#container",
-      "templatePath":"templates/okex/okexfeaturecompare",
-      "vmPath":"js/okex/btcsbtc",
-      "init":"",
-      "afterRender":"after"
-    }]
-  },
-  {
-    "path":"#orders",
-    "pageFragments":[{
-      "scope":"#container",
-      "templatePath":"templates/okex/okexorders",
-      "vmPath":"js/okex/okexorders",
-      "init":"",
-      "afterRender":"after"
-    }]
-  },
-  {
-    "path":"#account",
-    "pageFragments":[{
-      "scope":"#container",
-      "templatePath":"templates/okex/account",
-      "vmPath":"js/okex/account",
-      "init":"",
-      "afterRender":"after"
-    }]
   }
 ]

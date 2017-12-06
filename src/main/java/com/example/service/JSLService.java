@@ -72,4 +72,12 @@ public class JSLService {
         }
         logger.info("refresh data with " + DB.getAllStocks().size() +" done!");
     }
+
+    public void buildAllCurrencyInfo() {
+
+
+
+
+
+    }
 }

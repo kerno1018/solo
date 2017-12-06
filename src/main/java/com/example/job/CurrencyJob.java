@@ -63,12 +63,13 @@ public class CurrencyJob {
             Stock valueableStock = list.get(0);
             for(Account x : DB.getAllAccount().values()){
                 if(x.getStatus() && x.getLockAccountVersion().equals(0)){
-                    x.addLockAccountVersion();
+
                     // had ext money will auto buy.
                     if(Double.valueOf(x.getCanUseMoney()/Keys.FORBID_ROLLING_LIMIT).intValue() > 1){
                         if(valueableStock.sortByPrice() < 0 ){
                             Double canUseMoney = x.getCanUseMoney() - Keys.FORBID_ROLLING_LIMIT;
                             if(canUseMoney/valueableStock.getSellOnePrice() >= 100){
+                                x.addLockAccountVersion();
                                 new Thread(new NewerBuyCommand(x,valueableStock,logService)).start();
                                 break;
                             }
@@ -77,30 +78,30 @@ public class CurrencyJob {
                     // check own stock had rolling stock or not
                     for(OwnStock stock : x.getOwnStock().values()){
                         // if had own
-                        if(DB.getAllStocks().get(stock.getId()) != null){
+                        if(x.getLockAccountVersion().equals(0) && DB.getAllStocks().get(stock.getId()) != null && stock.getCanUseCount() > 0){
                             //check need rolling or not.
                             Stock own = DB.getAllStocks().get(stock.getId());
                             // filter same stock
                             if(own.getId().equals(valueableStock.getId())){
                                 continue;
                             }
-                            double valueablePriminum = (valueableStock.getSellOnePrice()-DB.realValue.get(valueableStock.getId())) /DB.realValue.get(valueableStock.getId());
-                            double ownPriminum = (DB.getAllStocks().get(own.getId()).getBuyOnePrice() - DB.realValue.get(own.getId())) / DB.realValue.get(own.getId());
+                            double valueablePriminum = MathUtil.formatDoubleWith2point((valueableStock.getSellOnePrice()-DB.realValue.get(valueableStock.getId())) /DB.realValue.get(valueableStock.getId()));
+                            double ownPriminum = MathUtil.formatDoubleWith2point((DB.getAllStocks().get(own.getId()).getBuyOnePrice() - DB.realValue.get(own.getId())) / DB.realValue.get(own.getId()));
                             double countPriminum = valueablePriminum - ownPriminum;
                             if(Keys.SHOW_LOG){
                                 logger.info("---------------------------------------------------------------------------");
-                                logger.info("value priminum :" + MathUtil.formatDouble(valueablePriminum));
-                                logger.info("  own priminum :" + MathUtil.formatDouble(ownPriminum));
-                                logger.info("count priminum :" + MathUtil.formatDouble(countPriminum));
+                                logger.info("value priminum :" + valueablePriminum);
+                                logger.info("  own priminum :" + ownPriminum);
+                                logger.info("count priminum :" + countPriminum);
                                 logger.info("---------------------------------------------------------------------------");
                             }
                             if(countPriminum < 0 && countPriminum <= Keys.CONDITION_PREMINUM){
                                 // sell own,buy new.
+                                x.addLockAccountVersion();
                                 new Thread(new SellAndBuyCommand(x,valueableStock,stock,logService)).start();
                             }
                         }
                     }
-                    x.substractLockAccountVersion();
                 }else{
                     logger.info("Account will continue rolling after all order finished.");
                 }

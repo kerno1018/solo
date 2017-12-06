@@ -2,8 +2,10 @@ package com.example.bean;
 
 
 import com.example.base.DB;
+import com.example.util.MathUtil;
 
 import javax.persistence.Transient;
+import java.math.BigDecimal;
 
 /**
  * Created by kerno on 1/8/2016.
@@ -340,6 +342,18 @@ public class Stock implements Cloneable{
     @Transient
     public Double getAvgSellPrice(){
         return buyOnePrice;
+    }
+
+    public Double getBuyPriminum(){
+
+
+        return MathUtil.formatDoubleWith2point((sellOnePrice - DB.realValue.get(id))/DB.realValue.get(id));
+
+    }
+    public Double getSellPriminum(){
+
+        return MathUtil.formatDoubleWith2point((buyOnePrice - DB.realValue.get(id))/DB.realValue.get(id));
+
     }
 
 

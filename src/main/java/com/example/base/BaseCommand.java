@@ -66,13 +66,12 @@ public class BaseCommand {
                                 doneFlag = true;
                                 LogBuilder.buildRealBuyInfo(info,orderInfo);
                                 account.syncMoney();
+                                account.syncAccountInfo();
                                 break;
                             }
                         }
                         Thread.sleep(2000);
-                        if(Keys.SHOW_LOG){
-                            logger.info("checking buy process to complement!");
-                        }
+                        logger.info("checking buy process to complement!");
                     }
                     account.subtractVersion();
                 }
@@ -92,7 +91,7 @@ public class BaseCommand {
         public void run() {
             try {
 //                String orderNo = Util.buy(account.getClient(),account,valueableStock.getId(),valueableStock.getSellOnePrice(),canBuyCount);
-                String orderNo = Util.sell(account.getClient(),account,DB.getAllStocks().get(ownStock.getId()).getBuyOnePrice(),ownStock.getCostPrice(),valueableStock.getId(),canSellCount);
+                String orderNo = Util.sell(account.getClient(),account,DB.getAllStocks().get(ownStock.getId()).getBuyOnePrice(),ownStock.getCostPrice(),ownStock.getId(),canSellCount);
                 if(!Keys.ERROR_ORDER_NO.equals(orderNo)){
                     LogBuilder.buildSellInfo(info,account,valueableStock);
                     info.setOrderNo(orderNo);
@@ -105,6 +104,7 @@ public class BaseCommand {
                                 doneFlag = true;
                                 LogBuilder.buildRealSellInfo(info,orderInfo);
                                 account.syncMoney();
+                                account.syncAccountInfo();
                                 break;
                             }
                         }
