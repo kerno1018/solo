@@ -3,6 +3,7 @@ package com.example.base;
 import com.example.bean.Account;
 import com.example.entity.LogInfo;
 import com.example.bean.Stock;
+import com.example.entity.StockInfo;
 import org.jsoup.helper.StringUtil;
 
 import java.util.*;
@@ -24,6 +25,7 @@ public class DB {
 
 
     public volatile static Map<String,Double> realValue = new ConcurrentHashMap<>();
+    public static Map<String,StockInfo> invalidStock = new ConcurrentHashMap<>();
     public volatile static Boolean start = false;
 
 

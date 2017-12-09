@@ -90,16 +90,24 @@ public class CurrencyJob {
                             double countPriminum = valueablePriminum - ownPriminum;
                             if(Keys.SHOW_LOG){
                                 logger.info("---------------------------------------------------------------------------");
-                                logger.info("value priminum :" + valueablePriminum);
-                                logger.info("  own priminum :" + ownPriminum);
-                                logger.info("count priminum :" + countPriminum);
+                                logger.info("value priminum :" + MathUtil.formatDouble(valueablePriminum));
+                                logger.info("  own priminum :" + MathUtil.formatDouble(ownPriminum));
+                                logger.info("count priminum :" + MathUtil.formatDouble(countPriminum));
                                 logger.info("---------------------------------------------------------------------------");
                             }
+                            // will trade if count priminum less than -0.02%
                             if(countPriminum < 0 && countPriminum <= Keys.CONDITION_PREMINUM){
                                 // sell own,buy new.
                                 x.addLockAccountVersion();
                                 new Thread(new SellAndBuyCommand(x,valueableStock,stock,logService)).start();
                             }
+
+                        }
+                        // will trade if own stock doesn't existing in stock info
+                        if(DB.getAllStocks().get(stock.getId()) == null){
+                            logger.info("Handling invalid stock will do change for recommend one");
+                            x.addLockAccountVersion();
+                            new Thread(new SellAndBuyCommand(x,valueableStock,stock,logService)).start();
                         }
                     }
                 }else{
@@ -109,7 +117,9 @@ public class CurrencyJob {
         }
     }
 
-//    @Scheduled(fixedDelay = 5*SECOND)
+
+
+    //    @Scheduled(fixedDelay = 5*SECOND)
 //    public void onlyLog(){
 //        if(Keys.DEBUG && DB.getAllAccount().size() ==0){
 //            User user = new User();

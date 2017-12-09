@@ -8,6 +8,7 @@ import java.util.Date;
 public class Keys {
      public static Boolean FORCE_STOP = false;
      public static Boolean needProxy = true;
+     public static Double INVALID_PRICE_LIMIT = 3000.0;
      public static Boolean DEBUG= false;
      public static Boolean SHOW_LOG=false;
      public static Double POSITION = 0.95;
